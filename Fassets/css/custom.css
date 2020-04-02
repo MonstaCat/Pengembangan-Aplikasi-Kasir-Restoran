@@ -1,0 +1,75 @@
+body {
+    position: relative;
+}
+
+.masthead {
+    height: 100vh;
+    min-height: 500px;
+    background: transparent, url('../img/mainHeader.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.bg-dark {
+    transition: 0.3s ease;
+    background: transparent!important;
+    height: 70px;
+}
+
+.bg-dark.scrolled {
+    background: #444444!important;
+    height: 60px;
+}
+
+.nav-link.main-link {
+    padding-left: 20px!important;
+    padding-right: 30px!important;
+}
+
+.nav-link.main-link-right {
+    padding-left: 20px !important;
+    padding-right: 40px !important;
+}
+
+.nav-link.brand-link {
+    padding-left: 20px !important;
+    color: #ffffff!important;
+}
+
+.introduction-title {
+    margin-top: 150px;
+    margin-bottom: 50px;
+}
+
+.introduction-content {
+    margin-bottom: 150px;
+}
+
+.left-item {
+    margin-left: 15px;
+    border-left: 1px solid #8f8f8f;
+}
+
+.cream-background {
+    background-color: #ca8b50;
+}
+
+.chocolate-background {
+    background-color: #111717;
+}
+
+.copyright-section {
+    padding: 1rem 0;
+}
+
+.copyright-text {
+    margin-top: 10px;
+    font-size: .9rem;
+    color: #111717;
+}
+
+.location-heading {
+    margin-top: 200px;
+    margin-bottom: 200px;
+}

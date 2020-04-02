@@ -1,0 +1,219 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: Feb 24, 2019 at 08:24 PM
+-- Server version: 5.7.23-0ubuntu0.16.04.1
+-- PHP Version: 7.0.32-0ubuntu0.16.04.1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `appKasir`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Menu`
+--
+
+CREATE TABLE `Menu` (
+  `idMenu` int(11) NOT NULL,
+  `namaMenu` varchar(50) NOT NULL,
+  `hargaMenu` int(15) NOT NULL,
+  `kategoriMenu` enum('Makanan','Minuman') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Menu`
+--
+
+INSERT INTO `Menu` (`idMenu`, `namaMenu`, `hargaMenu`, `kategoriMenu`) VALUES
+(1, 'Kopi Luwak', 100000, 'Minuman'),
+(2, 'Teh Hangat', 3000, 'Minuman'),
+(3, 'Teh Es', 4000, 'Minuman'),
+(4, 'Kopi Susu', 7000, 'Minuman'),
+(5, 'Teh Telur', 8000, 'Minuman'),
+(6, 'Ayam Bakar', 15000, 'Makanan'),
+(7, 'Ikan Bakar', 12000, 'Makanan'),
+(8, 'Dendeng Daging', 12000, 'Makanan'),
+(9, 'Rendang Daging', 12000, 'Makanan'),
+(10, 'Ayam Kecap', 12000, 'Makanan'),
+(11, 'Asam Pedas Patin', 16000, 'Makanan'),
+(12, 'Gulai Ayam', 13000, 'Makanan'),
+(13, 'Ayam Cabe Merah', 10000, 'Makanan'),
+(14, 'Telur Dadar Spesial', 10000, 'Makanan'),
+(15, 'Gulai Jengkol Pucuk Ubi', 12000, 'Makanan'),
+(16, 'Jus Jeruk', 8000, 'Minuman'),
+(17, 'Jus Apokat', 8000, 'Minuman'),
+(18, 'Jus Belimbing', 8000, 'Minuman'),
+(19, 'Air Mineral', 3500, 'Minuman'),
+(20, 'Kopi Ginseng', 6500, 'Minuman');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Pelanggan`
+--
+
+CREATE TABLE `Pelanggan` (
+  `idPelanggan` int(11) NOT NULL,
+  `namaPelanggan` varchar(30) NOT NULL,
+  `jenisKelamin` enum('L','P') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Pesanan`
+--
+
+CREATE TABLE `Pesanan` (
+  `idPesanan` int(11) NOT NULL,
+  `kodePesanan` varchar(15) NOT NULL,
+  `jumlah` int(5) NOT NULL,
+  `idMenu` int(11) NOT NULL,
+  `idPelanggan` int(11) NOT NULL,
+  `idUser` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Transaksi`
+--
+
+CREATE TABLE `Transaksi` (
+  `idTransaksi` int(11) NOT NULL,
+  `kodePesanan` varchar(15) NOT NULL,
+  `total` int(30) NOT NULL,
+  `bayar` int(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `User`
+--
+
+CREATE TABLE `User` (
+  `idUser` int(11) NOT NULL,
+  `namaUser` varchar(50) NOT NULL,
+  `levelUser` int(11) NOT NULL,
+  `passwordUser` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `User`
+--
+
+INSERT INTO `User` (`idUser`, `namaUser`, `levelUser`, `passwordUser`) VALUES
+(1, 'admin', 1, 'd033e22ae348aeb5660fc2140aec35850c4da997'),
+(2, 'waiter', 2, 'bda55eb01505bf9c8d7684bcb0c1f1124f64efa9'),
+(3, 'kasir', 3, '8691e4fc53b99da544ce86e22acba62d13352eff'),
+(4, 'owner', 4, '579233b2c479241523cba5e3af55d0f50f2d6414');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `Menu`
+--
+ALTER TABLE `Menu`
+  ADD PRIMARY KEY (`idMenu`);
+
+--
+-- Indexes for table `Pelanggan`
+--
+ALTER TABLE `Pelanggan`
+  ADD PRIMARY KEY (`idPelanggan`);
+
+--
+-- Indexes for table `Pesanan`
+--
+ALTER TABLE `Pesanan`
+  ADD PRIMARY KEY (`idPesanan`),
+  ADD KEY `idMenu` (`idMenu`),
+  ADD KEY `idPelanggan` (`idPelanggan`),
+  ADD KEY `idUser` (`idUser`),
+  ADD KEY `kodePesanan` (`kodePesanan`),
+  ADD KEY `kodePesanan_2` (`kodePesanan`);
+
+--
+-- Indexes for table `Transaksi`
+--
+ALTER TABLE `Transaksi`
+  ADD PRIMARY KEY (`idTransaksi`),
+  ADD KEY `kodePesanan` (`kodePesanan`);
+
+--
+-- Indexes for table `User`
+--
+ALTER TABLE `User`
+  ADD PRIMARY KEY (`idUser`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `Menu`
+--
+ALTER TABLE `Menu`
+  MODIFY `idMenu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+--
+-- AUTO_INCREMENT for table `Pelanggan`
+--
+ALTER TABLE `Pelanggan`
+  MODIFY `idPelanggan` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Pesanan`
+--
+ALTER TABLE `Pesanan`
+  MODIFY `idPesanan` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `Transaksi`
+--
+ALTER TABLE `Transaksi`
+  MODIFY `idTransaksi` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `User`
+--
+ALTER TABLE `User`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `Pelanggan`
+--
+ALTER TABLE `Pelanggan`
+  ADD CONSTRAINT `Pelanggan_ibfk_1` FOREIGN KEY (`idPelanggan`) REFERENCES `Pesanan` (`idPelanggan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Pesanan`
+--
+ALTER TABLE `Pesanan`
+  ADD CONSTRAINT `Pesanan_ibfk_1` FOREIGN KEY (`idUser`) REFERENCES `User` (`idUser`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `Pesanan_ibfk_2` FOREIGN KEY (`idMenu`) REFERENCES `Menu` (`idMenu`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `Transaksi`
+--
+ALTER TABLE `Transaksi`
+  ADD CONSTRAINT `Transaksi_ibfk_1` FOREIGN KEY (`kodePesanan`) REFERENCES `Pesanan` (`kodePesanan`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
